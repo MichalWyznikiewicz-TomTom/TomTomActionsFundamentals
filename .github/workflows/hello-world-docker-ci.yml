@@ -11,6 +11,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3.0.2
+        
+      - name: List files in the repository
+        run: |
+          echo "The repository ${{ github.repository }} contains the following files:"
+          pwd
+          ls
+          echo "\ncalling tree"
+          tree
     
       - name: Run my own container action
         id: hello-action
