@@ -1,0 +1,35 @@
+name: Repository test
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ master ]
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ["ubuntu-latest"]
+
+    env:
+      LANG: "en_GB.UTF-8"
+      JAVA_VERSION: "8"
+      MAVEN_VERSION: "3.8.2"
+
+    name: maven tests
+    steps:
+      - name: Set locale to ${{ env.LANG }}
+        run: |
+          sudo locale-gen ${{ env.LANG }}
+          sudo update-locale LANG=${{ env.LANG }}
+        shell: bash
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup settings.xml
+        run: |
+          echo 'Hello World'
+        shell: bash
